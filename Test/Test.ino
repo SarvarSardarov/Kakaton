@@ -89,8 +89,8 @@ void loop() {
     xPos = 0;
   }
 
-  int thickness = 10;
-  drawThickLine(xPos - 1, prevY, xPos, y2, RED, thickness);
+  int thickness = 1;
+  drawThickLine(xPos - 1, prevY, xPos, y2, GREEN, thickness);
   prevY = y2;
   xPos++;
 
