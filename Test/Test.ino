@@ -5,8 +5,8 @@ unsigned long startTime = 0;
 int pulseCount = 0;
 int lastSensorValue = 0;
 bool lastAboveThreshold = false;
-const unsigned long interval = 5000; // 5 секунд
-int threshold = 512; // Порог для определения пульса
+const unsigned long interval = 2000; // 5 секунд
+int threshold = 10; // Порог для определения пульса
 // Пины дисплея
 #define LCD_CS A3
 #define LCD_CD A2
@@ -46,8 +46,7 @@ void drawThickLine(int x1, int y1, int x2, int y2, uint16_t color, int thickness
 void setup() {
   Serial.begin(9600);
   
-  pinMode(10, INPUT);
-  pinMode(11, INPUT);
+  pinMode(1, INPUT);
   
   tft.reset();
   tft.begin(0x9341);
@@ -83,15 +82,15 @@ void loop() {
   }
 
   // Обновление графика
-  int y2 = map(sensorValue, 0, 1023, (screenHeight/2 + delta), (screenHeight/2 - delta));
+  int y2 = map(sensorValue, 0, 1023, (screenHeight/0.6 + delta), (screenHeight/2 - delta));
   if (xPos >= screenWidth) {
     tft.fillRect(0, 0, screenWidth, screenHeight, BLACK);
     tft.drawLine(0, screenHeight/2, screenWidth, screenHeight/2, WHITE);
     xPos = 0;
   }
 
-  int thickness = 3;
-  drawThickLine(xPos - 1, prevY, xPos, y2, GREEN, thickness);
+  int thickness = 10;
+  drawThickLine(xPos - 1, prevY, xPos, y2, RED, thickness);
   prevY = y2;
   xPos++;
 
