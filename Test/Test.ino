@@ -97,9 +97,18 @@ void loop() {
   delay(20);
 }
 
-// Объявление функции
 void drawThickLine(int x1, int y1, int x2, int y2, uint16_t color, int thickness) {
-  for (int i = -thickness/2; i <= thickness/2; i++) {
+  if (thickness < 1) {
+    thickness = 1; // минимальная толщина
+  }
+  
+  // Рисуем линию с границей для контраста
+ // for (int i = -thickness / 2; i <= thickness / 2; i++) {
+   // tft.drawLine(x1, y1 + i, x2, y2 + i, borderColor);
+  //}
+
+  // Рисуем основную линию чуть уже внутри границы
+  for (int i = -thickness / 4; i <= thickness / 4; i++) {
     tft.drawLine(x1, y1 + i, x2, y2 + i, color);
   }
 }
